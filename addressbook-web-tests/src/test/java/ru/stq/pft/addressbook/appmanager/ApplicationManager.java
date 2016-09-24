@@ -1,8 +1,10 @@
-package ru.stq.pft.addressbook;
+package ru.stq.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import ru.stq.pft.addressbook.model.ContactData;
+import ru.stq.pft.addressbook.model.GroupData;
 
 import java.util.concurrent.TimeUnit;
 

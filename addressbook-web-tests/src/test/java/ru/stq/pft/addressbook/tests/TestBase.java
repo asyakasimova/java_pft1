@@ -1,7 +1,8 @@
-package ru.stq.pft.addressbook;
+package ru.stq.pft.addressbook.tests;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import ru.stq.pft.addressbook.appmanager.ApplicationManager;
 
 /**
  * Created by A.Kasimova on 24.09.2016.
