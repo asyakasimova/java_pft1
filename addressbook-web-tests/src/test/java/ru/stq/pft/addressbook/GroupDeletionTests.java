@@ -9,14 +9,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class GroupDeletionTests {
-  FirefoxDriver wd;
-
-  @BeforeMethod
-  public void setUp() throws Exception {
-    wd = new FirefoxDriver();
-    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-  }
+public class GroupDeletionTests extends TestBase{
 
   @Test
   public void testGroupDeletion() {
@@ -34,17 +27,4 @@ public class GroupDeletionTests {
     wd.findElement(By.linkText("group page")).click();
   }
 
-  @AfterMethod
-  public void tearDown() {
-    wd.quit();
-  }
-
-  public static boolean isAlertPresent(FirefoxDriver wd) {
-    try {
-      wd.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
 }
