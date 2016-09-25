@@ -7,49 +7,37 @@ import ru.stq.pft.addressbook.model.ContactData;
 /**
  * Created by A.Kasimova on 25.09.2016.
  */
-public class ContactHelper {
-
-  private FirefoxDriver wd;
+public class ContactHelper extends HelperBase{
 
   public ContactHelper(FirefoxDriver wd) {
-    this.wd = wd;
+    super(wd);
   }
 
   public void returnToHomePage() {
-      wd.findElement(By.linkText("home")).click();
+      click(By.linkText("home"));
   }
 
   public void subminContact() {
-      wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+      click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
   public void fillContactForm(ContactData contactData) {
-      wd.findElement(By.name("firstname")).click();
-      wd.findElement(By.name("firstname")).clear();
-      wd.findElement(By.name("firstname")).sendKeys(contactData.getContactName());
-      wd.findElement(By.name("lastname")).click();
-      wd.findElement(By.name("lastname")).clear();
-      wd.findElement(By.name("lastname")).sendKeys(contactData.getContactSecondName());
-      wd.findElement(By.name("address")).click();
-      wd.findElement(By.name("address")).clear();
-      wd.findElement(By.name("address")).sendKeys(contactData.getContactAddress());
-      wd.findElement(By.name("home")).click();
-      wd.findElement(By.name("home")).clear();
-      wd.findElement(By.name("home")).sendKeys(contactData.getContactHomePhone());
-      wd.findElement(By.name("email")).click();
-      wd.findElement(By.name("email")).clear();
-      wd.findElement(By.name("email")).sendKeys(contactData.getContactEmail());
+    type(By.name("firstname"), contactData.getContactName());
+    type(By.name("lastname"), contactData.getContactSecondName());
+    type(By.name("address"), contactData.getContactAddress());
+    type(By.name("home"), contactData.getContactHomePhone());
+    type(By.name("email"), contactData.getContactEmail());
   }
 
   public void acceptDeletionContacts() {
-    wd.switchTo().alert().accept();
+    alertAccept();
   }
 
   public void deleteSelectedContacts() {
-    wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
+    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
   }
 
   public void selectContacts() {
-    wd.findElement(By.name("selected[]")).click();
+    click(By.name("selected[]"));
   }
 }
