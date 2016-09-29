@@ -23,9 +23,7 @@ public class NavigationHelper extends HelperBase{
     click(By.linkText("groups"));
   }
 
-  public void gotoCreateContactPage() {
-      click(By.linkText("add new"));
-  }
+
 
   public void gotoContactsPage() {
     if (isElementPresent(By.id("maintable"))) {

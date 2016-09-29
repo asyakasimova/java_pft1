@@ -40,6 +40,10 @@ public class ContactHelper extends HelperBase{
     type(By.name("email"), contactData.getContactEmail());
   }
 
+  public void gotoCreateContactPage() {
+    click(By.linkText("add new"));
+  }
+
   public void acceptDeletionContacts() {
     alertAccept();
   }
@@ -58,5 +62,16 @@ public class ContactHelper extends HelperBase{
 
   public void submitContactModification() {
     click(By.name("update"));
+  }
+
+  public void createContact(ContactData contact, boolean b) {
+    gotoCreateContactPage();
+    fillContactForm(contact, true);
+    subminContact();
+    returnToHomePage();
+  }
+
+  public boolean isThereAGroup() {
+    return isElementPresent(By.name("selected[]"));
   }
 }

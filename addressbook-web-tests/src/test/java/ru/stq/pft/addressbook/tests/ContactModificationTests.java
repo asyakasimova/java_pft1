@@ -11,6 +11,9 @@ public class ContactModificationTests extends TestBase {
   @Test
   public void testContactModification() {
     app.getNavigationHelper().gotoContactsPage();
+    if (! app.getContactHelper().isThereAGroup()) {
+      app.getContactHelper().createContact(new ContactData("Asya", "Kasimova", "test1", null, "+7 945 111 11 11", "asya.kasimova@a.com"), true);
+    }
     app.getContactHelper().initContactModification();
     app.getContactHelper().fillContactForm(new ContactData("Asya2", "Kasimova", null, "Тестовый адрес", "+7 945 111 11 11", "asya.kasimova@a.com"), false);
     app.getContactHelper().submitContactModification();
