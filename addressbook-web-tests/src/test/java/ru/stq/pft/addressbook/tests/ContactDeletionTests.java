@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stq.pft.addressbook.model.ContactData;
 
+import java.util.List;
+
 public class ContactDeletionTests extends TestBase{
 
 
@@ -13,13 +15,13 @@ public class ContactDeletionTests extends TestBase{
       if (! app.getContactHelper().isThereAGroup()) {
         app.getContactHelper().createContact(new ContactData("Asya", "Kasimova", "test1", null, "+7 945 111 11 11", "asya.kasimova@a.com"), true);
       }
-      int before = app.getContactHelper().getContactCount();
-      app.getContactHelper().selectContacts(before - 1);
+      List<ContactData> before = app.getContactHelper().getContactList();
+      app.getContactHelper().selectContacts(before.size() - 1);
       app.getContactHelper().deleteSelectedContacts();
       app.getContactHelper().acceptDeletionContacts();
       app.getContactHelper().returnToHomePage();
-      int after = app.getContactHelper().getContactCount();
-      Assert.assertEquals(after, before - 1);
+      List<ContactData> after = app.getContactHelper().getContactList();
+      Assert.assertEquals(after.size(), before.size() - 1);
     }
 
 }
