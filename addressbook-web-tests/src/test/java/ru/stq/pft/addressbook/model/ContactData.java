@@ -1,6 +1,7 @@
 package ru.stq.pft.addressbook.model;
 
 public class ContactData {
+  private final int id;
   private final String contactName;
   private final String contactSecondName;
   private String group;
@@ -8,13 +9,29 @@ public class ContactData {
   private final String contactHomePhone;
   private final String contactEmail;
 
-  public ContactData(String contactName, String contactSecondName, String group, String contactAddress, String contactHomePhone, String contactEmail) {
+  public ContactData(int id, String contactName, String contactSecondName, String group, String contactAddress, String contactHomePhone, String contactEmail) {
+    this.id = id;
     this.contactName = contactName;
     this.contactSecondName = contactSecondName;
     this.group = group;
     this.contactAddress = contactAddress;
     this.contactHomePhone = contactHomePhone;
     this.contactEmail = contactEmail;
+  }
+
+  public ContactData(String contactName, String contactSecondName, String group, String contactAddress, String contactHomePhone, String contactEmail) {
+    this.id = 0;
+    this.contactName = contactName;
+    this.contactSecondName = contactSecondName;
+    this.group = group;
+    this.contactAddress = contactAddress;
+    this.contactHomePhone = contactHomePhone;
+    this.contactEmail = contactEmail;
+  }
+
+
+  public int getId() {
+    return id;
   }
 
   public String getContactName() {
@@ -44,7 +61,8 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "contactName='" + contactName + '\'' +
+            "id=" + id +
+            ", contactName='" + contactName + '\'' +
             ", contactSecondName='" + contactSecondName + '\'' +
             '}';
   }
@@ -56,6 +74,7 @@ public class ContactData {
 
     ContactData that = (ContactData) o;
 
+    if (id != that.id) return false;
     if (contactName != null ? !contactName.equals(that.contactName) : that.contactName != null) return false;
     return contactSecondName != null ? contactSecondName.equals(that.contactSecondName) : that.contactSecondName == null;
 
@@ -63,7 +82,8 @@ public class ContactData {
 
   @Override
   public int hashCode() {
-    int result = contactName != null ? contactName.hashCode() : 0;
+    int result = id;
+    result = 31 * result + (contactName != null ? contactName.hashCode() : 0);
     result = 31 * result + (contactSecondName != null ? contactSecondName.hashCode() : 0);
     return result;
   }
