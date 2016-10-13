@@ -15,18 +15,18 @@ public class ContactModificationTests extends TestBase {
   @Test(enabled = true)
   public void testContactModification() {
     app.goTo().gotoContactsPage();
-    if (! app.getContactHelper().isThereAGroup()) {
-      app.getContactHelper().createContact(new ContactData().withContactName("Asya").
+    if (! app.contact().isThereAGroup()) {
+      app.contact().createContact(new ContactData().withContactName("Asya").
               withContactSecondName("Kasimova").withContactAddress("test1").withContactHomePhone("+7 945 111 11 11").withContactEmail("asya.kasimova@a.com"), true);
     }
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().initContactModification(before.size() - 1);
+    List<ContactData> before = app.contact().getContactList();
+    app.contact().initContactModification(before.size() - 1);
     ContactData contact = new ContactData().withId(before.get(before.size() - 1).getId()).withContactName("Asya2").withContactSecondName("Kasimova3").
             withContactAddress("Тестовый адрес").withContactHomePhone("+7 945 111 11 11").withContactEmail("asya.kasimova@a.com");
-    app.getContactHelper().fillContactForm(contact, false);
-    app.getContactHelper().submitContactModification();
-    app.getContactHelper().returnToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.contact().fillContactForm(contact, false);
+    app.contact().submitContactModification();
+    app.contact().returnToHomePage();
+    List<ContactData> after = app.contact().getContactList();
     Assert.assertEquals(after.size(), before.size());
 
     before.remove(before.size() - 1);

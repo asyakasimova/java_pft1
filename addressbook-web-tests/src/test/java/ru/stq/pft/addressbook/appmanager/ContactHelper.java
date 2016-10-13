@@ -46,6 +46,20 @@ public class ContactHelper extends HelperBase{
     type(By.name("email"), contactData.getContactEmail());
   }
 
+  public void delete(int index) {
+    selectContacts(index);
+    deleteSelectedContacts();
+    acceptDeletionContacts();
+    returnToHomePage();
+  }
+
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteSelectedContacts();
+    acceptDeletionContacts();
+    returnToHomePage();
+  }
+
   public void gotoCreateContactPage() {
     click(By.linkText("add new"));
   }
@@ -60,6 +74,10 @@ public class ContactHelper extends HelperBase{
 
   public void selectContacts(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
+  }
+
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id +"']")).click();
   }
 
   public void initContactModification(int index) {
@@ -109,4 +127,6 @@ public class ContactHelper extends HelperBase{
     }
     return contacts;
   }
+
+
 }
