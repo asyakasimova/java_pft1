@@ -12,15 +12,17 @@ import java.util.List;
  */
 public class ContactModificationTests extends TestBase {
 
-  @Test(enabled = false)
+  @Test(enabled = true)
   public void testContactModification() {
     app.goTo().gotoContactsPage();
     if (! app.getContactHelper().isThereAGroup()) {
-      app.getContactHelper().createContact(new ContactData("Asya", "Kasimova", "test1", null, "+7 945 111 11 11", "asya.kasimova@a.com"), true);
+      app.getContactHelper().createContact(new ContactData().withContactName("Asya").
+              withContactSecondName("Kasimova").withContactAddress("test1").withContactHomePhone("+7 945 111 11 11").withContactEmail("asya.kasimova@a.com"), true);
     }
     List<ContactData> before = app.getContactHelper().getContactList();
     app.getContactHelper().initContactModification(before.size() - 1);
-    ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "Asya2", "Kasimova3", null, "Тестовый адрес", "+7 945 111 11 11", "asya.kasimova@a.com");
+    ContactData contact = new ContactData().withId(before.get(before.size() - 1).getId()).withContactName("Asya2").withContactSecondName("Kasimova3").
+            withContactAddress("Тестовый адрес").withContactHomePhone("+7 945 111 11 11").withContactEmail("asya.kasimova@a.com");
     app.getContactHelper().fillContactForm(contact, false);
     app.getContactHelper().submitContactModification();
     app.getContactHelper().returnToHomePage();
