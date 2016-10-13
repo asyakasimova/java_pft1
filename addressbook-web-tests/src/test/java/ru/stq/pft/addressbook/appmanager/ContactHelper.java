@@ -10,7 +10,9 @@ import org.testng.Assert;
 import ru.stq.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by A.Kasimova on 25.09.2016.
@@ -92,6 +94,18 @@ public class ContactHelper extends HelperBase{
       String username = element.findElement(By.xpath("./td[3]")).getText();
       String familyName = element.findElement(By.xpath("./td[2]")).getText();
             contacts.add(new ContactData().withId(id).withContactName(username).withContactSecondName(familyName));
+    }
+    return contacts;
+  }
+
+  public Set<ContactData> getContactAll() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element : elements) {
+      int id = Integer.parseInt(element.findElement(By.xpath("./td[1]")).findElement(By.tagName("input")).getAttribute("value"));
+      String username = element.findElement(By.xpath("./td[3]")).getText();
+      String familyName = element.findElement(By.xpath("./td[2]")).getText();
+      contacts.add(new ContactData().withId(id).withContactName(username).withContactSecondName(familyName));
     }
     return contacts;
   }
