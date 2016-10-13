@@ -9,9 +9,9 @@ import java.util.List;
 public class ContactDeletionTests extends TestBase{
 
 
-    @Test
+    @Test(enabled = false)
     public void testContactDeletion() {
-      app.getNavigationHelper().gotoContactsPage();
+      app.goTo().gotoContactsPage();
       if (! app.getContactHelper().isThereAGroup()) {
         app.getContactHelper().createContact(new ContactData("Asya", "Kasimova", "test1", null, "+7 945 111 11 11", "asya.kasimova@a.com"), true);
       }
