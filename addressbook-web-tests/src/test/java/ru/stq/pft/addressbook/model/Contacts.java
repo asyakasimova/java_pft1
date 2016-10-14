@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Created by A.Kasimova on 14.10.2016.
  */
-public class Contacts extends ForwardingSet{
+public class Contacts extends ForwardingSet<ContactData>{
 
   private Set<ContactData> delegate;
 
@@ -21,7 +21,7 @@ public class Contacts extends ForwardingSet{
   }
 
   @Override
-  protected Set delegate() {
+  protected Set<ContactData> delegate() {
     return delegate;
   }
 
