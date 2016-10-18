@@ -7,10 +7,6 @@ import org.testng.annotations.Test;
 import ru.stq.pft.addressbook.model.ContactData;
 import ru.stq.pft.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-
 /**
  * Created by A.Kasimova on 25.09.2016.
  */
@@ -23,12 +19,12 @@ public class ContactModificationTests extends TestBase {
       app.contact().createContact(new ContactData().withContactName("Asya").
               withContactSecondName("Kasimova").withContactAddress("test1").withContactHomePhone("+7 945 111 11 11").withContactEmail("asya.kasimova@a.com"), true);
     }
-    Contacts before = app.contact().getContactAll();
+    Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withId(modifiedContact.getId()).withContactName("Asya2").withContactSecondName("Kasimova3").
             withContactAddress("Тестовый адрес").withContactHomePhone("+7 945 111 11 11").withContactEmail("asya.kasimova@a.com");
     app.contact().modify(contact);
-    Contacts after = app.contact().getContactAll();
+    Contacts after = app.contact().all();
     Assert.assertEquals(after.size(), before.size());
 
     MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(contact)));
