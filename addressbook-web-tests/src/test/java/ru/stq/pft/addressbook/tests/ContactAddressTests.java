@@ -28,8 +28,8 @@ public class ContactAddressTests extends TestBase {
 
   }
 
-  public static String cleaned(String email){
-    return email.replaceAll("\\n", " ").replaceAll("\\s+", " ");
+  public static String cleaned(String address){
+    return address.replaceAll("\\n", " ").replaceAll("\\s+", " ");
   }
 
 
