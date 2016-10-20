@@ -150,6 +150,6 @@ public class ContactHelper extends HelperBase{
     String email3 = wd.findElement(By.name("email3")).getAttribute("value");
     wd.navigate().back();
     return new ContactData().withId(contact.getId()).withContactName(firstname).withContactSecondName(lastname).withContactHomePhone(home)
-            .withContactMobilePhone(mobile).withContactWorkPhone(work);
+            .withContactMobilePhone(mobile).withContactWorkPhone(work).withContactEmail(email).withContactEmail2(email2).withContactEmail3(email3);
   }
 }
