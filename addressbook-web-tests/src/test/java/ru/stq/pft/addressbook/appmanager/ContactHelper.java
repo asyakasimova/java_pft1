@@ -130,9 +130,8 @@ public class ContactHelper extends HelperBase{
       String username = element.findElement(By.xpath("./td[3]")).getText();
       String familyName = element.findElement(By.xpath("./td[2]")).getText();
       String allPhones = element.findElement(By.xpath("./td[6]")).getText();
-      String[] emails = element.findElement(By.xpath("./td[5]")).getText().split("\n");
-      contactCache.add(new ContactData().withId(id).withContactName(username).withContactSecondName(familyName).withContactEmail(emails[0])
-              .withContactEmail(emails[1]).withContactEmail(emails[2]).withAllPhones(allPhones));
+      String emails = element.findElement(By.xpath("./td[5]")).getText();
+      contactCache.add(new ContactData().withId(id).withContactName(username).withContactSecondName(familyName).withEmails(emails).withAllPhones(allPhones));
     }
     return new Contacts(contactCache);
   }

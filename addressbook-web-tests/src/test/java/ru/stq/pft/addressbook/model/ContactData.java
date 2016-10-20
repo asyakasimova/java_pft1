@@ -13,6 +13,7 @@ public class ContactData {
   private String contactEmail;
   private String contactEmail2;
   private String contactEmail3;
+  private String emails;
 
 
   public int getId() {
@@ -63,7 +64,14 @@ public class ContactData {
     return allPhones;
   }
 
+  public String getEmails() {
+    return emails;
+  }
 
+  public ContactData withEmails(String emails) {
+    this.emails = emails;
+    return this;
+  }
 
   public ContactData withContactEmail2(String contactEmail2) {
     this.contactEmail2 = contactEmail2;
