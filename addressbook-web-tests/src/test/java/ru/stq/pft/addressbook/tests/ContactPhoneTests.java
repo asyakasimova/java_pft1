@@ -31,7 +31,7 @@ public class ContactPhoneTests extends TestBase {
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
     assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
   }
-
+//wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).c;ick();
   private String mergePhones(ContactData contact) {
     return Arrays.asList(contact.getContactHomePhone(), contact.getContactMobilePhone(), contact.getContactWorkPhone()).stream()
             .filter(s -> ! s.equals("")).map(ContactPhoneTests::cleaned).collect(Collectors.joining("\n"));
