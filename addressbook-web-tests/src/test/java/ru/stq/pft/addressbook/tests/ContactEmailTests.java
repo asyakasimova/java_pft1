@@ -32,11 +32,12 @@ public class ContactEmailTests extends TestBase {
   }
 
   private String mergeEmails(ContactData contact) {
-    return Arrays.asList(cleaned(contact.getContactEmail()), cleaned(contact.getContactEmail2()), cleaned(contact.getContactEmail3())).stream()
+    return Arrays.asList(contact.getContactEmail(), contact.getContactEmail2(), contact.getContactEmail3()).stream()
+            .map(ContactPhoneTests::cleaned)
             .filter((s) -> ! s.equals("")).collect(Collectors.joining("\n"));
   }
 
-  public String cleaned(String email){
+  public static String cleaned(String email){
     return email.replaceAll("\\s", "");
   }
 
