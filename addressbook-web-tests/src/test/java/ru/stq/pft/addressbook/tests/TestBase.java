@@ -1,5 +1,7 @@
 package ru.stq.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +10,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stq.pft.addressbook.appmanager.ApplicationManager;
+import ru.stq.pft.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -42,4 +45,9 @@ public class TestBase {
     logger.info("Stop test " + m.getName());
   }
 
+  public void VerifyGroupListInUI() {
+    Groups dbGroups = app.db().groups();
+    Groups uiGroups = app.group().all();
+    MatcherAssert.assertThat(uiGroups, CoreMatchers.equalTo(dbGroups));
+  }
 }

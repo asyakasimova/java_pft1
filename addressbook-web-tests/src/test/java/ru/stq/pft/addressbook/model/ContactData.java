@@ -197,6 +197,11 @@ public class ContactData {
             "id=" + id +
             ", contactName='" + contactName + '\'' +
             ", contactSecondName='" + contactSecondName + '\'' +
+            ", contactAddress='" + contactAddress + '\'' +
+            ", contactHomePhone='" + contactHomePhone + '\'' +
+            ", contactMobilePhone='" + contactMobilePhone + '\'' +
+            ", contactWorkPhone='" + contactWorkPhone + '\'' +
+            ", contactEmail='" + contactEmail + '\'' +
             '}';
   }
 
@@ -209,7 +214,17 @@ public class ContactData {
 
     if (id != that.id) return false;
     if (contactName != null ? !contactName.equals(that.contactName) : that.contactName != null) return false;
-    return contactSecondName != null ? contactSecondName.equals(that.contactSecondName) : that.contactSecondName == null;
+    if (contactSecondName != null ? !contactSecondName.equals(that.contactSecondName) : that.contactSecondName != null)
+      return false;
+    if (contactAddress != null ? !contactAddress.equals(that.contactAddress) : that.contactAddress != null)
+      return false;
+    if (contactHomePhone != null ? !contactHomePhone.equals(that.contactHomePhone) : that.contactHomePhone != null)
+      return false;
+    if (contactMobilePhone != null ? !contactMobilePhone.equals(that.contactMobilePhone) : that.contactMobilePhone != null)
+      return false;
+    if (contactWorkPhone != null ? !contactWorkPhone.equals(that.contactWorkPhone) : that.contactWorkPhone != null)
+      return false;
+    return contactEmail != null ? contactEmail.equals(that.contactEmail) : that.contactEmail == null;
 
   }
 
@@ -218,6 +233,11 @@ public class ContactData {
     int result = id;
     result = 31 * result + (contactName != null ? contactName.hashCode() : 0);
     result = 31 * result + (contactSecondName != null ? contactSecondName.hashCode() : 0);
+    result = 31 * result + (contactAddress != null ? contactAddress.hashCode() : 0);
+    result = 31 * result + (contactHomePhone != null ? contactHomePhone.hashCode() : 0);
+    result = 31 * result + (contactMobilePhone != null ? contactMobilePhone.hashCode() : 0);
+    result = 31 * result + (contactWorkPhone != null ? contactWorkPhone.hashCode() : 0);
+    result = 31 * result + (contactEmail != null ? contactEmail.hashCode() : 0);
     return result;
   }
 }
