@@ -15,8 +15,8 @@ public class ContactModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().gotoContactsPage();
-    if (! app.contact().isThereAGroup()) {
+    if(app.db().contacts().size() == 0) {
+      app.goTo().gotoContactsPage();
       app.contact().createContact(new ContactData().withContactName("Asya").
               withContactSecondName("Kasimova").withContactAddress("test1").withContactHomePhone("+7 945 111 11 11").withContactEmail("asya.kasimova@a.com"), true);
     }
@@ -25,13 +25,14 @@ public class ContactModificationTests extends TestBase {
   @Test(enabled = true)
   public void testContactModification() {
 
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
+    app.goTo().gotoContactsPage();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withId(modifiedContact.getId()).withContactName("Asya2").withContactSecondName("Kasimova3").
             withContactAddress("Тестовый адрес").withContactHomePhone("+7 945 111 11 11").withContactEmail("asya.kasimova@a.com");
     app.contact().modify(contact);
     assertThat(app.contact().count(), equalTo(before.size()));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
   }
 }
