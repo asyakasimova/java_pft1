@@ -6,6 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import ru.stq.pft.addressbook.model.ContactData;
+import ru.stq.pft.addressbook.model.GroupData;
+import ru.stq.pft.addressbook.model.Groups;
+import ru.stq.pft.addressbook.tests.TestBase;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,7 +21,7 @@ import java.util.List;
 /**
  * Created by A.Kasimova on 22.10.2016.
  */
-public class ContactDataGenerator {
+public class ContactDataGenerator extends TestBase{
   @Parameter (names = "-c", description = "Contacts count")
   public int count;
 
@@ -37,10 +40,18 @@ public class ContactDataGenerator {
       jCommander.usage();
       return;
     }
+
     generator.run();
   }
 
-  private void run() throws IOException {
+  public void ensurePreconditions() {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+    }
+  }
+
+ private void run() throws IOException {
     List<ContactData> contacts = generateContacts(count);
     if (format.equals("csv")) {
       saveAsCsv(contacts, new File(file));
@@ -51,7 +62,6 @@ public class ContactDataGenerator {
     }else {
       System.out.println("Unrecognised format " + format);
     }
-
   }
 
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
@@ -75,16 +85,25 @@ public class ContactDataGenerator {
     try (Writer writer = new FileWriter(file)) {
       for (ContactData contact : contacts){
         writer.write(String.format("%s;%s;%s;%s;%s;%s;\n", contact.getContactName(), contact.getContactSecondName(), contact.getContactAddress(), contact.getContactHomePhone(),
-                contact.getContactEmail(), contact.getGroup()));
+                contact.getContactEmail()));
       }
     }
   }
 
-  private  List<ContactData> generateContacts(int count) {
+  private GroupData selectContact() {
+    Groups groups = app.db().groups();
+    String groupName = groups.iterator().next().getName();
+    return new GroupData();
+  }
+
+   private  List<ContactData> generateContacts(int count) {
     List<ContactData> contacts = new ArrayList<ContactData>();
+    Groups groups = app.db().groups();
+
     for (int i = 0; i < count; i++) {
-      contacts.add(new ContactData().withContactName((String.format("Asya %s", i))).withContactSecondName(String.format("Kas %s", i)).withContactAddress(String.format("address %s", i))
-              .withContactHomePhone(String.format("+7 495 111 11 1%s", i)).withContactEmail(String.format("a.kas%s@mail.ru", i)).withGroup("test1"));
+      ContactData newContact = new ContactData().withContactName((String.format("Asya %s", i))).withContactSecondName(String.format("Kas %s", i)).withContactAddress(String.format("address %s", i))
+              .withContactHomePhone(String.format("+7 495 111 11 1%s", i)).withContactEmail(String.format("a.kas%s@mail.ru", i)).inGroup(groups.iterator().next());
+      contacts.add(newContact);
     }
     return contacts;
   }

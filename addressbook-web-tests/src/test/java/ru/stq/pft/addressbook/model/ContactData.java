@@ -7,6 +7,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -22,9 +24,7 @@ public class ContactData {
   @Expose
   @Column(name = "lastname")
   private String contactSecondName;
-  @Expose
-  @Transient
-  private String group;
+
   @Expose
   @Column(name = "address")
   @Type(type = "text")
@@ -62,6 +62,10 @@ public class ContactData {
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   public File getPhoto() {
     if (photo == null) {
@@ -110,16 +114,16 @@ public class ContactData {
     return contactEmail3;
   }
 
-  public String getGroup() {
-    return group;
-  }
-
   public String getAllPhones() {
     return allPhones;
   }
 
   public String getEmails() {
     return emails;
+  }
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   public ContactData withPhoto(File photo) {
@@ -159,11 +163,6 @@ public class ContactData {
 
   public ContactData withContactSecondName(String contactSecondName) {
     this.contactSecondName = contactSecondName;
-    return this;
-  }
-
-  public ContactData withGroup(String group) {
-    this.group = group;
     return this;
   }
 
@@ -239,5 +238,10 @@ public class ContactData {
     result = 31 * result + (contactWorkPhone != null ? contactWorkPhone.hashCode() : 0);
     result = 31 * result + (contactEmail != null ? contactEmail.hashCode() : 0);
     return result;
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 }

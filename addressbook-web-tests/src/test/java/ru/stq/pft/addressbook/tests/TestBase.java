@@ -10,10 +10,12 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stq.pft.addressbook.appmanager.ApplicationManager;
+import ru.stq.pft.addressbook.model.GroupData;
 import ru.stq.pft.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Created by A.Kasimova on 24.09.2016.
@@ -46,8 +48,12 @@ public class TestBase {
   }
 
   public void VerifyGroupListInUI() {
-    Groups dbGroups = app.db().groups();
-    Groups uiGroups = app.group().all();
-    MatcherAssert.assertThat(uiGroups, CoreMatchers.equalTo(dbGroups));
+    if(Boolean.getBoolean("verifyUI")) {
+      Groups dbGroups = app.db().groups();
+      Groups uiGroups = app.group().all();
+      MatcherAssert.assertThat(uiGroups, CoreMatchers.equalTo(dbGroups.stream()
+              .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+              .collect(Collectors.toSet())));
+    }
   }
 }

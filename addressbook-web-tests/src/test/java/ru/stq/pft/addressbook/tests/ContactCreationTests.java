@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stq.pft.addressbook.model.ContactData;
 import ru.stq.pft.addressbook.model.Contacts;
+import ru.stq.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,10 +55,11 @@ public class ContactCreationTests extends TestBase {
 
   @Test(dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactData contact) throws Exception {
-
+    Groups groups = app.db().groups();
     app.goTo().gotoContactsPage();
-    Contacts before = app.db().contacts();
     File photo = new File("src/test/resources/checkbox.png");
+    Contacts before = app.db().contacts();
+
     app.contact().createContact(contact, true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.db().contacts();
