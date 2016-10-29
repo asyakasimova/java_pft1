@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stq.pft.addressbook.model.ContactData;
+import ru.stq.pft.addressbook.model.Contacts;
 import ru.stq.pft.addressbook.model.GroupData;
 import ru.stq.pft.addressbook.model.Groups;
 
@@ -21,10 +22,11 @@ import java.util.List;
  */
 public class ContactToGroupTests extends TestBase{
 
+
   private SessionFactory sessionFactory;
 
   @BeforeClass
-  public void setUp() throws Exception {
+  public void setUpDb() throws Exception {
     // A SessionFactory is set up once for an application!
     final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure() // configures settings from hibernate.cfg.xml
@@ -58,15 +60,25 @@ public class ContactToGroupTests extends TestBase{
 
   @Test
   public void testContactToGroup() {
-    ContactData contact = app.contact().all().iterator().next();
+    Contacts contacts = app.db().contacts();
+    ContactData contact = contacts.iterator().next();
+    int contactId = contact.getId();
     Groups contactGroupsBefore = contact.getGroups();
-    app.contact().selectContactById(contact.getId());
     GroupData group = getGroupList().iterator().next();
+    int groupId = group.getId();
+    
+    app.contact().selectContactById(contact.getId());
     app.contact().addToGroup(group);
+    contact = getContactWithId(contactId);
     Groups contactGroupsAfter = contact.getGroups();
     contactGroupsBefore.add(group);
 
     MatcherAssert.assertThat(contactGroupsAfter, CoreMatchers.equalTo(contactGroupsBefore));
+  }
+
+  @Test
+  public void testContactFromGroup() {
+    Contacts contacts = app.db().contacts();
   }
 
   private List<GroupData> getGroupList() {
@@ -76,5 +88,21 @@ public class ContactToGroupTests extends TestBase{
     session.getTransaction().commit();
     session.close();
     return groups;
+  }
+  private List<ContactData> getContacts() {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<ContactData> contacts = session.createQuery( "from ContactData where deprecated = '0000-00-00'" ).list();
+    session.getTransaction().commit();
+    session.close();
+    return contacts;
+  }
+  private ContactData getContactWithId(int id) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    ContactData contact = (ContactData) session.createQuery( "from ContactData where id=" + id).uniqueResult();
+    session.getTransaction().commit();
+    session.close();
+    return contact;
   }
 }
