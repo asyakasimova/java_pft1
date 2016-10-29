@@ -5,6 +5,8 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
+import org.openqa.selenium.remote.BrowserType;
+import ru.stq.pft.addressbook.appmanager.ApplicationManager;
 import ru.stq.pft.addressbook.model.ContactData;
 import ru.stq.pft.addressbook.model.GroupData;
 import ru.stq.pft.addressbook.model.Groups;
@@ -31,8 +33,11 @@ public class ContactDataGenerator extends TestBase{
   @Parameter (names = "-d", description = "Data format")
   public String format;
 
+  protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+
   public static void main(String[] args) throws IOException {
     ContactDataGenerator generator = new ContactDataGenerator();
+    generator.app.init();
     JCommander jCommander = new JCommander(generator);
     try {
       jCommander.parse(args);
@@ -40,7 +45,7 @@ public class ContactDataGenerator extends TestBase{
       jCommander.usage();
       return;
     }
-
+    generator.ensurePreconditions();
     generator.run();
   }
 
@@ -53,6 +58,7 @@ public class ContactDataGenerator extends TestBase{
 
  private void run() throws IOException {
     List<ContactData> contacts = generateContacts(count);
+
     if (format.equals("csv")) {
       saveAsCsv(contacts, new File(file));
     } else if (format.equals("xml")) {
@@ -67,9 +73,9 @@ public class ContactDataGenerator extends TestBase{
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(contacts);
-    try (Writer writer = new FileWriter(file)) {
-      writer.write(json);
-    }
+    Writer writer = new FileWriter(file);
+    writer.write(json);
+    writer.close();
   }
 
   private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
@@ -84,7 +90,7 @@ public class ContactDataGenerator extends TestBase{
   private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
     try (Writer writer = new FileWriter(file)) {
       for (ContactData contact : contacts){
-        writer.write(String.format("%s;%s;%s;%s;%s;%s;\n", contact.getContactName(), contact.getContactSecondName(), contact.getContactAddress(), contact.getContactHomePhone(),
+        writer.write(String.format("%s;%s;%s;%s;%s;\n", contact.getContactName(), contact.getContactSecondName(), contact.getContactAddress(), contact.getContactHomePhone(),
                 contact.getContactEmail()));
       }
     }

@@ -1,0 +1,26 @@
+<list>
+  <contact>
+    <contactName>Asya 0</contactName>
+    <contactSecondName>Kas 0</contactSecondName>
+    <contactAddress>address 0</contactAddress>
+    <contactHomePhone>+7 495 111 11 10</contactHomePhone>
+    <contactEmail>a.kas0@mail.ru</contactEmail>
+    <groups>
+      <group>
+        <name>test1</name>
+        <header>test2</header>
+        <footer></footer>
+        <contacts class="org.hibernate.collection.internal.PersistentSet">
+          <isTempSession>false</isTempSession>
+          <initialized>false</initialized>
+          <owner class="group" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>ru.stq.pft.addressbook.model.GroupData.contacts</role>
+          <key class="int">73</key>
+          <dirty>false</dirty>
+          <allowLoadOutsideTransaction>false</allowLoadOutsideTransaction>
+        </contacts>
+      </group>
+    </groups>
+  </contact>
+</list>
