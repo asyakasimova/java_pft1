@@ -18,6 +18,9 @@ import ru.stq.pft.addressbook.model.Groups;
 
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 /**
  * Created by A.Kasimova on 29.10.2016.
  */
@@ -96,8 +99,9 @@ public class ContactFromGroupTests extends TestBase{
     app.contact().deleteContactFromGroup(groupToRemove.getName());
 
     Groups contactGroupsAfter = getContactWithId(contactId).getGroups();
+    assertThat(contactGroupsAfter.size(), equalTo(contactGroupsBefore.size() - 1));
 
-    MatcherAssert.assertThat(contactGroupsAfter, CoreMatchers.equalTo(contactGroupsBefore.without(groupToRemove)));
+    assertThat(contactGroupsAfter, equalTo(contactGroupsBefore.without(groupToRemove)));
   }
 
   private ContactData getContactWithId(int id) {
