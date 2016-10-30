@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 import ru.stq.pft.addressbook.model.GroupData;
 import ru.stq.pft.addressbook.model.Groups;
 
@@ -107,4 +108,7 @@ public class GroupHelper extends HelperBase {
   }
 
 
+  public void selectGroup(GroupData groupToRemove) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(groupToRemove.getName());
+  }
 }

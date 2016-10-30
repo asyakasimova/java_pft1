@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.stq.pft.addressbook.model.ContactData;
 import ru.stq.pft.addressbook.model.Contacts;
@@ -51,8 +52,23 @@ public class ContactFromGroupTests extends TestBase{
     if (app.db().groups().size() == 0) {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test1"));
-      Groups groups = app.db().groups();
-      GroupData group = groups.iterator().next();
+    }
+
+    Groups groups = app.db().groups();
+    Contacts contactsInGroup = new Contacts();
+    app.goTo().gotoContactsPage();
+
+    for (GroupData group : groups) {
+      if (group.getContacts().size() != 0) {
+        contactsInGroup.add(group.getContacts().iterator().next());
+        break;
+      }
+    }
+
+    if (contactsInGroup.size() == 0) {
+
+      Groups groupsNew = app.db().groups();
+      GroupData group = groupsNew.iterator().next();
       Contacts contacts = app.db().contacts();
       app.contact().selectContactById(contacts.iterator().next().getId());
       app.contact().addToGroup(group);
@@ -64,6 +80,7 @@ public class ContactFromGroupTests extends TestBase{
   public void testContactFromGroup() {
     Groups groups = app.db().groups();
     Contacts contactsInGroup = new Contacts();
+    app.goTo().gotoContactsPage();
     for (GroupData group : groups) {
       if (group.getContacts().size() != 0) {
         contactsInGroup.add(group.getContacts().iterator().next());
@@ -74,13 +91,13 @@ public class ContactFromGroupTests extends TestBase{
     int contactId = contactsInGroup.stream().iterator().next().getId();
     Groups contactGroupsBefore = contactsInGroup.stream().iterator().next().getGroups();
     GroupData groupToRemove = contactGroupsBefore.stream().iterator().next();
+    app.group().selectGroup(groupToRemove);
     app.contact().selectContactById(contactId);
     app.contact().deleteContactFromGroup(groupToRemove.getName());
 
     Groups contactGroupsAfter = getContactWithId(contactId).getGroups();
-    contactGroupsBefore.without(groupToRemove);
 
-    MatcherAssert.assertThat(contactGroupsAfter, CoreMatchers.equalTo(contactGroupsBefore));
+    MatcherAssert.assertThat(contactGroupsAfter, CoreMatchers.equalTo(contactGroupsBefore.without(groupToRemove)));
   }
 
   private ContactData getContactWithId(int id) {
