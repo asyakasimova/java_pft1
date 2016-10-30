@@ -1,7 +1,5 @@
 package ru.stq.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -16,6 +14,9 @@ import ru.stq.pft.addressbook.model.GroupData;
 import ru.stq.pft.addressbook.model.Groups;
 
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by A.Kasimova on 28.10.2016.
@@ -60,25 +61,34 @@ public class ContactToGroupTests extends TestBase{
 
   @Test
   public void testContactToGroup() {
+    // подготовка данных для тестов
     Contacts contacts = app.db().contacts();
     ContactData contact = contacts.iterator().next();
     int contactId = contact.getId();
     Groups contactGroupsBefore = contact.getGroups();
     GroupData group = getGroupList().iterator().next();
-    int groupId = group.getId();
-    
+
+    // выполнение теста (включение в группу), подготовка данных для проверки постусловий
+
     app.contact().selectContactById(contact.getId());
     app.contact().addToGroup(group);
     contact = getContactWithId(contactId);
     Groups contactGroupsAfter = contact.getGroups();
     contactGroupsBefore.add(group);
 
-    MatcherAssert.assertThat(contactGroupsAfter, CoreMatchers.equalTo(contactGroupsBefore));
-  }
+    // проверки
 
-  @Test
-  public void testContactFromGroup() {
-    Contacts contacts = app.db().contacts();
+    if (contactGroupsBefore.size() == 0) {
+      assertThat(contactGroupsAfter.size(), equalTo(contactGroupsBefore.size() + 1));
+    } else {
+      if (contactGroupsBefore.stream().filter((g) -> g.equals(group)).findFirst() == null) {
+        assertThat(contactGroupsAfter.size(), equalTo(contactGroupsBefore.size() + 1));
+      } else {
+        assertThat(contactGroupsAfter.size(), equalTo(contactGroupsBefore.size()));
+      }
+    }
+
+    assertThat(contactGroupsAfter, equalTo(contactGroupsBefore));
   }
 
   private List<GroupData> getGroupList() {

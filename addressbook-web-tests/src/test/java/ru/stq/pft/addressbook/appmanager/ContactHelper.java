@@ -176,4 +176,9 @@ public class ContactHelper extends HelperBase{
     String pageText = wd.findElement(By.id("content")).getText();
     return pageText;
   }
+
+  public void deleteContactFromGroup(String group) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(group);
+    click(By.name("remove"));
+  }
 }
