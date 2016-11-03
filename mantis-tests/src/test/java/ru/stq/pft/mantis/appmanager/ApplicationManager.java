@@ -27,6 +27,7 @@ public class ApplicationManager {
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
   private MailHelper mailHelper;
+  private DbHelper db;
 
   public ApplicationManager(String browser){
     this.browser = browser;
@@ -68,6 +69,13 @@ public class ApplicationManager {
       ftp = new FtpHelper(this);
     }
     return ftp;
+  }
+
+  public DbHelper db() {
+    if(db == null){
+      db = new DbHelper();
+    }
+    return db;
   }
 
 

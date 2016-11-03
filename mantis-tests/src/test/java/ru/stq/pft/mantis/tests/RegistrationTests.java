@@ -1,6 +1,5 @@
 package ru.stq.pft.mantis.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -31,13 +30,13 @@ public class RegistrationTests extends TestBase {
     String password = "password";
     app.registration().start(user, email);
     List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
-    String confirmationLink = findConsifmationLink(mailMessages, email);
+    String confirmationLink = findConаiкmationLink(mailMessages, email);
 
     app.registration().finish(confirmationLink, password);
     assertTrue(app.newSession().login(user, password));
   }
 
-  private String findConsifmationLink(List<MailMessage> mailMessages, String email) {
+  private String findConаiкmationLink(List<MailMessage> mailMessages, String email) {
     MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
     VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);

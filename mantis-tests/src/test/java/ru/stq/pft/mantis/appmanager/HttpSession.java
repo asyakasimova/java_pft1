@@ -53,4 +53,5 @@ public class HttpSession {
     String body = getTextFrom(response);
     return body.contains(String.format("span id=\"logged-in-user\">%s</span>", username));
   }
+
 }

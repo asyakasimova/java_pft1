@@ -4,6 +4,7 @@ package ru.stq.pft.mantis.model;
  * Created by A.Kasimova on 02.11.2016.
  */
 public class MailMessage {
+
   public String to;
   public String text;
 

@@ -2,6 +2,7 @@ package ru.stq.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.stq.pft.mantis.model.User;
 
 
 /**
@@ -26,5 +27,13 @@ public class RegistrationHelper extends HelperBase{
     type(By.name("password"), password);
     type(By.name("password_confirm"), password);
     click(By.cssSelector("input[value='Изменить учетную запись']"));
+  }
+
+  public void initiatePasswordReset(String username) {
+    wd.get(app.getProperty("web.baseUrl") + "/my_view_page.php");
+    click(By.name("manage-menu-link"));
+    click(By.linkText("Управление пользователями"));
+    click(By.linkText(username));
+    click(By.cssSelector("input[value='Сбросить пароль']"));
   }
 }
