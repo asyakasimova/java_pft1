@@ -22,7 +22,7 @@ public class JamesHelper {
   private ApplicationManager app;
   private TelnetClient telnet;
   private InputStream in;
-  private OutputStream out;
+  private PrintStream out;
 
   private Session mailSession;
   private Store store;
@@ -73,13 +73,13 @@ public class JamesHelper {
 
     readUntil("Login id:");
     write("");
-    readUntil("Password id:");
+    readUntil("Password:");
     write("");
 
     readUntil("Login id:");
     write(login);
-    readUntil("Password id:");
-    write("password");
+    readUntil("Password:");
+    write(password);
 
     readUntil("Welcome " + login + ". HELP for a list of commands");
   }
@@ -90,7 +90,7 @@ public class JamesHelper {
       StringBuffer sb = new StringBuffer();
       char ch = (char) in.read();
       while (true) {
-        System.out.println(ch);
+        System.out.print(ch);
         sb.append(ch);
         if(ch == lastChar) {
           if(sb.toString().endsWith(pattern)){
