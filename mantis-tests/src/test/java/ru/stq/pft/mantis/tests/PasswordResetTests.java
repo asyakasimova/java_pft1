@@ -55,7 +55,7 @@ public class PasswordResetTests extends TestBase {
     User user = app.db().user();
     String username = user.getUsername();
     String email = user.getEmail();
-    String newpassword = "password";
+    String newpassword = "newpassword";
 
     app.registration().loginAs("administrator", "root1");
     app.registration().initiatePasswordReset(username);
@@ -65,7 +65,6 @@ public class PasswordResetTests extends TestBase {
 
     app.registration().finish(confirmationLink, newpassword);
     assertTrue(app.newSession().login(username, newpassword));
-
   }
 
 
