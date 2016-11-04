@@ -55,9 +55,9 @@ public class PasswordResetTests extends TestBase {
     User user = app.db().user();
     String username = user.getUsername();
     String email = user.getEmail();
-    String newpassword = "newpassword";
+    String newpassword = "password";
 
-    session.login("administrator", "root1");
+    app.registration().loginAs("administrator", "root1");
     app.registration().initiatePasswordReset(username);
 
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
@@ -67,6 +67,7 @@ public class PasswordResetTests extends TestBase {
     assertTrue(app.newSession().login(username, newpassword));
 
   }
+
 
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
     MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
