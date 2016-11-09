@@ -35,10 +35,12 @@ public class TestBase {
 
     String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issues/" + issueId + ".json")).returnContent().asString();
     JsonElement parsed = new JsonParser().parse(json);
-    JsonElement issue = parsed.getAsJsonArray().get(0);
-    JsonElement state = issue.getAsJsonObject().get("state");
+    JsonElement issues = parsed.getAsJsonObject().get("issues");
+    JsonElement issue = issues.getAsJsonArray().get(0);
+    JsonElement state = issue.getAsJsonObject().get("state_name");
+    String stateName = state.toString();
 
-    if (!state.equals("2") && !state.equals("3")) {
+    if (stateName.equals("Resolved") && stateName.equals("Closed")) {
       return true;
     } else {
       return false;
