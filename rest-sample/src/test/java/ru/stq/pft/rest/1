@@ -1,0 +1,22 @@
+{"total":1,
+"page":1,
+"limit":1,
+"issues":
+    [{"assignee":{"id":"1","created":"2016-11-08T20:00:03+00:00","updated":"2016-11-08T20:00:03+00:00","firstname":"Demo","lastname":"User","name":"Demo User","email":"demo@bugify.com","username":"demo","notifications":
+    {"creator":true,"assignee":true,"following":true,"commented":true,"mychange":true,"mentioned":true,"allcreates":true},"groups":[],
+    "settings":[],"owner":true,"timezone":"UTC","state":1,"api_key":"LSGjeU4yP1X493ud1hNniA=="},"assignee_id":1,"category_id":0,
+    "created":"2016-11-08T20:00:04+00:00",
+    "creator":
+        {"id":"1","created":"2016-11-08T20:00:03+00:00",
+        "updated":"2016-11-08T20:00:03+00:00","firstname":"Demo","lastname":"User","name":"Demo User","email":"demo@bugify.com","username":"demo",
+        "notifications":{"creator":true,"assignee":true,"following":true,"commented":true,"mychange":true,"mentioned":true,"allcreates":true},
+        "groups":[],"settings":[],"owner":true,"timezone":"UTC","state":1,"api_key":"LSGjeU4yP1X493ud1hNniA=="},
+    "creator_id":1,"description":"Sample issue description.","id":9,"labels":[],
+    "milestone_id":0,
+    "percentage":100,
+    "priority":"2",
+    "priority_name":"High",
+    "project":{"id":"1",
+    "created":"2016-11-08T20:00:03+00:00",
+    "updated":"2016-11-08T20:00:03+00:00","name":"Blackbird","slug":"blackbird","categories":[],"description":"","state":"1"},"project_id":1,"related_issue_ids":[],
+    "resolved":"2016-11-08T20:31:50+00:00","state":"2","state_name":"Resolved","subject":"Sample issue 9","updated":"2016-11-08T20:31:52+00:00"}]}
