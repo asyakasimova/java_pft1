@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 /**
  * Created by Valkyrja on 24.09.2016.
  */
-public class РointTests {
+public class PointTests {
 
   @Test
   public void testPoint() {
