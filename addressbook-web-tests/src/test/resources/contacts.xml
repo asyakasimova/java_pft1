@@ -1,0 +1,26 @@
+<list>
+  <contact>
+    <contactName>Asya0</contactName>
+    <contactSecondName>Rfs0</contactSecondName>
+    <contactAddress>address 0</contactAddress>
+    <contactHomePhone>(123)0</contactHomePhone>
+    <contactEmail>email0@email.com</contactEmail>
+    <groups/>
+  </contact>
+  <contact>
+    <contactName>Asya1</contactName>
+    <contactSecondName>Rfs1</contactSecondName>
+    <contactAddress>address 1</contactAddress>
+    <contactHomePhone>(123)1</contactHomePhone>
+    <contactEmail>email1@email.com</contactEmail>
+    <groups/>
+  </contact>
+  <contact>
+    <contactName>Asya2</contactName>
+    <contactSecondName>Rfs2</contactSecondName>
+    <contactAddress>address 2</contactAddress>
+    <contactHomePhone>(123)2</contactHomePhone>
+    <contactEmail>email2@email.com</contactEmail>
+    <groups/>
+  </contact>
+</list>

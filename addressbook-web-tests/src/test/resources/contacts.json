@@ -1,0 +1,29 @@
+[
+  {
+    "contactName": "Asya0",
+    "contactSecondName": "Rfs0",
+    "contactAddress": "address 0",
+    "contactHomePhone": "(123)0",
+    "contactMobilePhone": "7770",
+    "contactWorkPhone": "+7770",
+    "contactEmail": "email0@email.com"
+  },
+  {
+    "contactName": "Asya1",
+    "contactSecondName": "Rfs1",
+    "contactAddress": "address 1",
+    "contactHomePhone": "(123)1",
+    "contactMobilePhone": "7771",
+    "contactWorkPhone": "+7771",
+    "contactEmail": "email1@email.com"
+  },
+  {
+    "contactName": "Asya2",
+    "contactSecondName": "Rfs2",
+    "contactAddress": "address 2",
+    "contactHomePhone": "(123)2",
+    "contactMobilePhone": "7772",
+    "contactWorkPhone": "+7772",
+    "contactEmail": "email2@email.com"
+  }
+]

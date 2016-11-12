@@ -221,10 +221,6 @@ public class ContactData {
       return false;
     if (contactHomePhone != null ? !contactHomePhone.equals(that.contactHomePhone) : that.contactHomePhone != null)
       return false;
-    if (contactMobilePhone != null ? !contactMobilePhone.equals(that.contactMobilePhone) : that.contactMobilePhone != null)
-      return false;
-    if (contactWorkPhone != null ? !contactWorkPhone.equals(that.contactWorkPhone) : that.contactWorkPhone != null)
-      return false;
     return contactEmail != null ? contactEmail.equals(that.contactEmail) : that.contactEmail == null;
 
   }
@@ -236,8 +232,6 @@ public class ContactData {
     result = 31 * result + (contactSecondName != null ? contactSecondName.hashCode() : 0);
     result = 31 * result + (contactAddress != null ? contactAddress.hashCode() : 0);
     result = 31 * result + (contactHomePhone != null ? contactHomePhone.hashCode() : 0);
-    result = 31 * result + (contactMobilePhone != null ? contactMobilePhone.hashCode() : 0);
-    result = 31 * result + (contactWorkPhone != null ? contactWorkPhone.hashCode() : 0);
     result = 31 * result + (contactEmail != null ? contactEmail.hashCode() : 0);
     return result;
   }
